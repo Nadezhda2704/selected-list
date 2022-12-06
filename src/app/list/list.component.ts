@@ -17,16 +17,24 @@ export class ListComponent implements OnInit {
   constructor( private pokemonService: PokemonService) { }
 
   ngOnInit(): void {
+    this.getData();
+  }
+
+  more() {
+    this.offset += this.limit;
+    this.getData();
+  }
+
+  getData() {
     this.pokemonService.get( this.offset, this.limit )
       .pipe(
         untilDestroyed(this),
         tap(
           (res) => {
-            this.list = res.results;
+            this.list = [ ...this.list, ...res.results ];
           }
         )
       )
       .subscribe()
   }
-
 }

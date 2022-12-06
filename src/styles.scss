@@ -17,5 +17,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .main-card {
   padding: 30px 20px 40px;
   height: 100%;
-  overflow: auto;
+}
+
+.mat-mdc-tab-group {
+  max-height: 100%;
 }

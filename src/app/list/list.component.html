@@ -1,3 +1,6 @@
 <div class="list">
   <div class="list--item" *ngFor="let item of list">{{item.name}}</div>
 </div>
+<button class="list--btn-more" mat-raised-button color="primary" (click)="more()">
+  Загрузить еще
+</button>
