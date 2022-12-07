@@ -1,0 +1,14 @@
+:host {
+  padding-top: 20px;
+  height: 100%;
+  min-height: 100%;
+}
+
+.selected-list {
+  overflow: auto;
+  padding: 20px 10px 30px;
+
+  &--item {
+    padding: 6px 4px;
+  }
+}

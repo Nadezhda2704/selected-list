@@ -15,11 +15,7 @@ export class PokemonService {
   constructor( private http: HttpClient ) {
     this.localStorage = window.localStorage;
 
-    if( this.getSelected()?.length) {
-      this.selected$.next(this.getSelected());
-    } else {
-      this.localStorage.setItem('selected', JSON.stringify([]));
-    }
+    this.initSelected();
   }
 
   get( offset: number, limit: number ): Observable<any> {
@@ -34,7 +30,7 @@ export class PokemonService {
     return JSON.parse(`${this.localStorage.getItem('selected')}`);
   }
 
-  updateSelectedList(name: string) {
+  updateSelectedList(name: string): void {
     const selected = this.getSelected();
     const isUnic = !selected.includes(name);
 
@@ -42,6 +38,14 @@ export class PokemonService {
       selected.push(name);
       this.selected$.next(selected);
       this.localStorage.setItem('selected', JSON.stringify(selected));
+    }
+  }
+
+  initSelected(): void {
+    if( this.getSelected()?.length) {
+      this.selected$.next(this.getSelected());
+    } else {
+      this.localStorage.setItem('selected', JSON.stringify([]));
     }
   }
 }

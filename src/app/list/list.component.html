@@ -1,5 +1,15 @@
+<form [formGroup]="formGroup" action="">
+  <mat-form-field class="example-form-field">
+    <mat-label>Фильтровать по имени</mat-label>
+    <input matInput type="text" formControlName="search">
+    <button *ngIf="searchControl?.value" matSuffix mat-icon-button aria-label="Очистить" (click)="clearSearch()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</form>
+
 <div class="list">
-  <div class="list--item" *ngFor="let item of list">
+  <div class="list--item" *ngFor="let item of listForShow">
     <div [matMenuTriggerFor]="menu">{{item.name}}</div>
     <mat-menu #menu="matMenu">
       <button mat-button color="primary" (click)="addToSelected(item.name)">Добавить в избранное</button>

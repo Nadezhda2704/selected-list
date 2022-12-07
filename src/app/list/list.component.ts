@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { PokemonService } from '../services/pokemon.service';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
-import { tap } from 'rxjs';
+import { debounceTime, tap } from 'rxjs';
+import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -10,19 +11,25 @@ import { tap } from 'rxjs';
   styleUrls: ['./list.component.scss']
 })
 export class ListComponent implements OnInit {
+  formGroup: FormGroup = new FormGroup( {
+    search: new FormControl( '' ),
+  });
+
   limit = 50;
   offset = 0;
   list: any[] = [];
+  listForShow: any[] = [];
 
   constructor( private pokemonService: PokemonService) { }
 
-  ngOnInit(): void {
-    this.getData();
+  get searchControl(): AbstractControl | null {
+    return this.formGroup.get( 'search' );
   }
 
-  more() {
-    this.offset += this.limit;
+  ngOnInit(): void {
     this.getData();
+
+    this.filterList();
   }
 
   getData() {
@@ -32,13 +39,38 @@ export class ListComponent implements OnInit {
         tap(
           (res) => {
             this.list = [ ...this.list, ...res.results ];
+            this.listForShow = this.list;
           }
         )
       )
       .subscribe()
   }
 
+  filterList() {
+    this.searchControl?.valueChanges.pipe(
+      untilDestroyed(this),
+      tap(
+        (res) => {
+          this.listForShow = this.list.filter( (item)=> {
+            return item.name.includes(res);
+          } )
+          console.log(this.listForShow);
+        }
+      )
+    ).subscribe()
+  }
+
+  more() {
+    this.clearSearch();
+    this.offset += this.limit;
+    this.getData();
+  }
+
   addToSelected(name: string) {
     this.pokemonService.updateSelectedList(name);
+  }
+
+  clearSearch() {
+    this.searchControl?.setValue('');
   }
 }
