@@ -16,16 +16,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'selected-list'`, () => {
+  it(`should have as title 'favorites-list'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('selected-list');
+    expect(app.title).toEqual('favorites-list');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('selected-list app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('favorites-list app is running!');
   });
 });

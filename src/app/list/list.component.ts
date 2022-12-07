@@ -36,6 +36,7 @@ export class ListComponent implements OnInit {
     this.pokemonService.get( this.offset, this.limit )
       .pipe(
         untilDestroyed(this),
+        debounceTime(200),
         tap(
           (res) => {
             this.list = [ ...this.list, ...res.results ];
@@ -54,7 +55,6 @@ export class ListComponent implements OnInit {
           this.listForShow = this.list.filter( (item)=> {
             return item.name.includes(res);
           } )
-          console.log(this.listForShow);
         }
       )
     ).subscribe()
@@ -66,8 +66,8 @@ export class ListComponent implements OnInit {
     this.getData();
   }
 
-  addToSelected(name: string) {
-    this.pokemonService.updateSelectedList(name);
+  addToFavorites(name: string) {
+    this.pokemonService.updateFavoritesList(name);
   }
 
   clearSearch() {

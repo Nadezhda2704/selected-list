@@ -6,7 +6,7 @@ import { ListComponent } from './list/list.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
-import { SelectedListComponent } from './selected-list/selected-list.component';
+import { FavoritesListComponent } from './favorites-list/favorites-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
@@ -19,7 +19,7 @@ import { MatInputModule } from '@angular/material/input';
   declarations: [
     AppComponent,
     ListComponent,
-    SelectedListComponent
+    FavoritesListComponent
   ],
   imports: [
     HttpClientModule,

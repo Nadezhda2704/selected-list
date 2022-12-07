@@ -5,12 +5,12 @@ import { tap } from 'rxjs';
 
 @UntilDestroy()
 @Component({
-  selector: 'app-selected-list',
-  templateUrl: './selected-list.component.html',
-  styleUrls: ['./selected-list.component.scss']
+  selector: 'app-favorites-list',
+  templateUrl: './favorites-list.component.html',
+  styleUrls: ['./favorites-list.component.scss']
 })
-export class SelectedListComponent implements OnInit {
-  selectedList: any = [];
+export class FavoritesListComponent implements OnInit {
+  favoritesList: any = [];
 
   constructor( private pokemonService: PokemonService) {
 
@@ -21,11 +21,11 @@ export class SelectedListComponent implements OnInit {
   }
 
   getData() {
-    this.pokemonService.selected$.pipe(
+    this.pokemonService.favorites$.pipe(
       untilDestroyed(this),
       tap(
         (res) => {
-          this.selectedList = res;
+          this.favoritesList = res;
         }
       )
     ).subscribe()
