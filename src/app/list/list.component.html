@@ -1,5 +1,11 @@
 <div class="list">
-  <div class="list--item" *ngFor="let item of list">{{item.name}}</div>
+  <div class="list--item" *ngFor="let item of list">
+    <div [matMenuTriggerFor]="menu">{{item.name}}</div>
+    <mat-menu #menu="matMenu">
+      <button mat-button color="primary" (click)="addToSelected(item.name)">Добавить в избранное</button>
+    </mat-menu>
+  </div>
+
 </div>
 <button class="list--btn-more" mat-raised-button color="primary" (click)="more()">
   Загрузить еще

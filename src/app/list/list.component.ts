@@ -37,4 +37,8 @@ export class ListComponent implements OnInit {
       )
       .subscribe()
   }
+
+  addToSelected(name: string) {
+    this.pokemonService.updateSelectedList(name);
+  }
 }
